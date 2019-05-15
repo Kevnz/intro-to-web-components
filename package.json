@@ -1,7 +1,18 @@
 {
   "name": "intro-to-webcomponents",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"This is a placeholder\" && exit 0"
+    "start": "mdx-deck deck.mdx -p 8088",
+    "build": "mdx-deck build deck.mdx",
+    "pdf": "mdx-deck pdf deck.mdx",
+    "image": "mdx-deck screenshot deck.mdx",
+    "help": "mdx-deck"
   },
-  "version": "1.0.0"
+  "devDependencies": {
+    "mdx-deck": "^2.3.2",
+    "mdx-deck-code-surfer": "^0.5.5",
+    "raw-loader": "^2.0.0",
+    "styled-components": "^4.2.0"
+  }
 }
