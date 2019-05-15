@@ -68,13 +68,13 @@ const theme = {
   pre: {
     textAlign: 'left',
   },
-  root: {
-    border: '30px solid green',
+  svg: {
+    margin: '30px',
   },
   Slide: {
     // borderLeft: '1px solid #0D1117',
-    '& > div': {
-
+    '& svg': {
+      margin: '50px',
     },
   },
   css: {
