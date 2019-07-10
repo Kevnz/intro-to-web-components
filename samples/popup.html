@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rich Anchor Custom Element Example</title>
+  <style>
+    body {
+      margin: 75px;
+    }
+
+    div {
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="first">
+    <rich-a img="https://logo.clearbit.com/gitlab.com?size=320" href="https://gitlab.com"
+      data-text="GitLab is a single application for the entire software development lifecycle. From project planning and source code management to CI/CD, monitoring, and security.">
+      GitLab
+    </rich-a>
+  </div>
+  <div>
+    <rich-a img="https://logo.clearbit.com/github.com?size=320" href="https://github.com"
+      data-text="GitHub is the developer company. We make it easier for developers to be developers: to work together, to solve challenging problems, to create the world’s most important technologies. We foster a collaborative community that can come together—as individuals and in teams—to create the future of software and make a difference in the world.">
+      GitHub
+    </rich-a>
+  </div>
+
+
+  <script>
+    class RichAnchor extends HTMLElement {
+      constructor() {
+        super(); // always call super
+
+        const shadow = this.attachShadow({ mode: 'open' });
+        const wrapper = document.createElement('span');
+        wrapper.setAttribute('class', 'wrapper');
+
+        const icon = document.createElement('a');
+        icon.setAttribute('class', 'icon');
+        icon.setAttribute('tabindex', 0);
+        icon.setAttribute('target', '_blank');
+        icon.setAttribute('rel', 'noopener noreferrer');
+
+        icon.setAttribute('href', this.getAttribute('href'));
+        const info = document.createElement('span');
+        info.setAttribute('class', 'info');
+
+        const text = this.getAttribute('data-text');
+        const link = this.getAttribute('data-link');
+        info.textContent = text;
+
+        let imgUrl;
+
+        if (this.hasAttribute('img')) {
+          imgUrl = this.getAttribute('img');
+        } else {
+          imgUrl = 'img/default.png';
+        }
+
+        icon.innerHTML = `${this.innerHTML} &nbsp;`
+
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        icon.appendChild(img);
+
+        const style = document.createElement('style');
+        style.textContent = `
+      .wrapper {
+        position: relative;
+        margin: 5px;
+      }
+      .info {
+        font-size: 0.8rem;
+        width: 320px;
+        display: inline-block;
+        border: 1px solid black;
+        padding: 10px;
+        background: white;
+        border-radius: 6px;
+        opacity: 0;
+        transition: 0.6s all;
+        position: absolute;
+        bottom: -40px;
+        left: 85px;
+        z-index: 3;
+      }
+      a {
+        text-decoration: none;
+      }
+      img {
+        width: 1.2rem;
+        vertical-align: top;
+      }
+
+      a:hover + .info, a:focus + .info {
+        opacity: 1;
+      }
+    `;
+        shadow.appendChild(style);
+        shadow.appendChild(wrapper);
+        wrapper.appendChild(icon);
+        wrapper.appendChild(info);
+        console.log('this', this.getBoundingClientRect().width)
+        console.log('twrapper', wrapper.width)
+      }
+      focus() {
+        console.log(this.shadowRoot.querySelector('a'))
+        this.shadowRoot.querySelector('a').focus()
+      }
+    }
+
+    customElements.define('rich-a', RichAnchor);
+
+
+
+    function ready(fn) {
+      if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+
+    ready(() => {
+      const ra = document.querySelector('#first rich-a')
+      console.log(this.shadow)
+      ra.focus()
+    })
+  </script>
+</body>
+
+</html>
