@@ -18,10 +18,10 @@ const baseTheme = {
     fontSize: '16px',
     textAlign: 'center',
     '@media screen and (min-width:56em)': {
-      fontSize: '32px',
+      // fontSize: '32px',
     },
     '@media screen and (min-width:64em)': {
-      fontSize: '48px',
+      // fontSize: '48px',
     },
     '@media print': {
       fontSize: '40px',
@@ -32,6 +32,7 @@ const baseTheme = {
   },
   pre: {
     textAlign: 'left',
+    fontSize: '22px',
   },
   ol: {
     textAlign: 'left',
